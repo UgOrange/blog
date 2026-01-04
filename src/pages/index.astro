@@ -1,0 +1,149 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/Header.astro";
+import { useTranslations } from "../i18n/utils";
+
+const t = useTranslations("zh");
+
+// Get Chinese posts only (posts starting with zh/ or without language prefix)
+const allPosts = await getCollection("blog");
+const posts = allPosts
+  .filter((post) => post.id.startsWith("zh/") || (!post.id.startsWith("en/") && !post.id.includes("/")))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<!doctype html>
+<html lang="zh">
+  <head>
+    <BaseHead title={t("site.title")} description={t("site.description")} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section class="hero">
+        <h1>{t("home.welcome")}</h1>
+        <p>{t("home.intro")}</p>
+      </section>
+
+      <section class="recent-posts">
+        <div class="section-header">
+          <h2>{t("home.recent")}</h2>
+          <a href="/blog" class="view-all">{t("home.viewAll")} →</a>
+        </div>
+        <ul class="post-list">
+          {
+            posts.map((post) => (
+              <li>
+                <a href={`/blog/${post.id.replace("zh/", "")}/`}>
+                  <h3>{post.data.title}</h3>
+                  <p class="description">{post.data.description}</p>
+                  <p class="date">
+                    <FormattedDate date={post.data.pubDate} />
+                  </p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main {
+    width: 960px;
+    max-width: calc(100% - 2em);
+    margin: 0 auto;
+    padding: 2em 1em;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 3em 0;
+    margin-bottom: 2em;
+    border-bottom: 1px solid rgb(var(--gray-light));
+  }
+
+  .hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .hero p {
+    font-size: 1.2em;
+    color: rgb(var(--gray));
+  }
+
+  .recent-posts {
+    margin-top: 2em;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5em;
+  }
+
+  .section-header h2 {
+    margin: 0;
+  }
+
+  .view-all {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .view-all:hover {
+    text-decoration: underline;
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .post-list li {
+    margin-bottom: 1.5em;
+    padding-bottom: 1.5em;
+    border-bottom: 1px solid rgb(var(--gray-light));
+  }
+
+  .post-list li:last-child {
+    border-bottom: none;
+  }
+
+  .post-list a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .post-list a:hover h3 {
+    color: var(--accent);
+  }
+
+  .post-list h3 {
+    margin: 0 0 0.5em 0;
+    font-size: 1.3em;
+    transition: color 0.2s;
+  }
+
+  .post-list .description {
+    margin: 0 0 0.5em 0;
+    color: rgb(var(--gray-dark));
+  }
+
+  .post-list .date {
+    margin: 0;
+    color: rgb(var(--gray));
+    font-size: 0.9em;
+  }
+</style>

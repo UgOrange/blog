@@ -1,0 +1,26 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import BlogPost from "../../layouts/BlogPost.astro";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("blog");
+  // Get Chinese posts (zh/ prefix or no language prefix)
+  const posts = allPosts.filter(
+    (post) => post.id.startsWith("zh/") || (!post.id.startsWith("en/") && !post.id.includes("/"))
+  );
+
+  return posts.map((post) => ({
+    params: { slug: post.id.replace("zh/", "") },
+    props: post,
+  }));
+}
+
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogPost {...post.data}>
+  <Content />
+</BlogPost>

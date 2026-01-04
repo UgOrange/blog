@@ -1,0 +1,98 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import { AUTHOR } from "../../consts";
+import { useTranslations } from "../../i18n/utils";
+
+const t = useTranslations("en");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={t("about.title")} description={t("about.description")} />
+    <style>
+      main {
+        width: 960px;
+        max-width: calc(100% - 2em);
+        margin: 0 auto;
+        padding: 2em 1em;
+      }
+      .about-content {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      .about-content h1 {
+        margin-bottom: 1em;
+      }
+      .about-content p {
+        margin-bottom: 1.5em;
+        line-height: 1.8;
+        color: rgb(var(--gray-dark));
+      }
+      .contact-links {
+        margin-top: 2em;
+        padding-top: 2em;
+        border-top: 1px solid rgb(var(--gray-light));
+      }
+      .contact-links h2 {
+        margin-bottom: 1em;
+      }
+      .contact-links ul {
+        list-style: none;
+        padding: 0;
+      }
+      .contact-links li {
+        margin-bottom: 0.5em;
+      }
+      .contact-links a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .contact-links a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="about-content">
+        <h1>{t("about.title")}</h1>
+        <p>
+          Hi there! I'm {AUTHOR.name}, a passionate developer who loves technology.
+          Welcome to my personal blog!
+        </p>
+        <p>
+          Here, I share my thoughts on software development, technology exploration,
+          and everyday life. I believe sharing knowledge is the best way to learn,
+          and I hope my articles can help you in some way.
+        </p>
+        <p>
+          I'm curious about all kinds of technologies, especially Web development,
+          system design, and development tools. If you have any questions or ideas,
+          feel free to reach out to me through the following channels.
+        </p>
+
+        <div class="contact-links">
+          <h2>Contact</h2>
+          <ul>
+            <li>
+              📧 Email: <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>
+            </li>
+            <li>
+              🐙 GitHub: <a href={`https://github.com/${AUTHOR.github}`} target="_blank"
+                >@{AUTHOR.github}</a
+              >
+            </li>
+            <li>
+              🌐 Website: <a href={AUTHOR.website} target="_blank">{AUTHOR.website}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

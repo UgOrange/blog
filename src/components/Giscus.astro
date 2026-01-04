@@ -1,0 +1,57 @@
+---
+import { getLangFromUrl } from "../i18n/utils";
+
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+
+// Giscus configuration
+// IMPORTANT: You need to set up Giscus for your repository:
+// 1. Go to https://giscus.app
+// 2. Enter your repository: ugorange/blog
+// 3. Enable discussions in your repository settings
+// 4. Update the data-repo, data-repo-id, data-category, and data-category-id below
+const giscusConfig = {
+  repo: "ugorange/blog",
+  repoId: "", // Get this from https://giscus.app
+  category: "Announcements", // Or your preferred category
+  categoryId: "", // Get this from https://giscus.app
+  mapping: "pathname",
+  reactionsEnabled: "1",
+  emitMetadata: "0",
+  inputPosition: "top",
+  theme: "light",
+  lang: lang === "zh" ? "zh-CN" : "en",
+};
+---
+
+<div class:list={["giscus-container", className]}>
+  <script
+    is:inline
+    src="https://giscus.app/client.js"
+    data-repo={giscusConfig.repo}
+    data-repo-id={giscusConfig.repoId}
+    data-category={giscusConfig.category}
+    data-category-id={giscusConfig.categoryId}
+    data-mapping={giscusConfig.mapping}
+    data-strict="0"
+    data-reactions-enabled={giscusConfig.reactionsEnabled}
+    data-emit-metadata={giscusConfig.emitMetadata}
+    data-input-position={giscusConfig.inputPosition}
+    data-theme={giscusConfig.theme}
+    data-lang={giscusConfig.lang}
+    crossorigin="anonymous"
+    async
+  ></script>
+</div>
+
+<style>
+  .giscus-container {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgb(var(--gray-light));
+  }
+</style>
