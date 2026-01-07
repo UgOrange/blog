@@ -26,32 +26,52 @@ const t = useTranslations("en");
       .about-content h1 {
         margin-bottom: 1em;
       }
+      .about-content h2 {
+        margin-top: 2em;
+        margin-bottom: 0.8em;
+        font-size: 1.3em;
+        color: rgb(var(--gray-dark));
+      }
       .about-content p {
-        margin-bottom: 1.5em;
+        margin-bottom: 1.2em;
         line-height: 1.8;
         color: rgb(var(--gray-dark));
       }
+      .about-content ul {
+        margin-bottom: 1.5em;
+        padding-left: 1.5em;
+      }
+      .about-content li {
+        margin-bottom: 0.5em;
+        line-height: 1.7;
+      }
+      .about-content a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .about-content a:hover {
+        text-decoration: underline;
+      }
+      .cert-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.2em 0.6em;
+        border-radius: 4px;
+        font-size: 0.85em;
+        margin-right: 0.5em;
+      }
       .contact-links {
-        margin-top: 2em;
+        margin-top: 2.5em;
         padding-top: 2em;
         border-top: 1px solid rgb(var(--gray-light));
-      }
-      .contact-links h2 {
-        margin-bottom: 1em;
       }
       .contact-links ul {
         list-style: none;
         padding: 0;
       }
       .contact-links li {
-        margin-bottom: 0.5em;
-      }
-      .contact-links a {
-        color: var(--accent);
-        text-decoration: none;
-      }
-      .contact-links a:hover {
-        text-decoration: underline;
+        margin-bottom: 0.6em;
       }
     </style>
   </head>
@@ -59,36 +79,66 @@ const t = useTranslations("en");
     <Header />
     <main>
       <div class="about-content">
-        <h1>{t("about.title")}</h1>
+        <h1>Hi, I'm Changhao Li 👋</h1>
+
         <p>
-          Hi there! I'm {AUTHOR.name}, a passionate developer who loves technology.
-          Welcome to my personal blog!
+          A security engineer focused on cloud-native security.
+          Over the past few years, I've been exploring ways to make containers and Kubernetes clusters more secure.
+          I hold <span class="cert-badge">CKA</span> and <span class="cert-badge">CKS</span> certifications.
+        </p>
+
+        <h2>What I Do</h2>
+        <p>
+          My work centers around building cloud-native security systems, including Kubernetes intrusion detection,
+          container sandbox hardening, and implementing cloud security capabilities (CWPP/KSPM).
+          I believe good security products should be "out-of-the-box" — lowering the barrier to entry benefits everyone.
         </p>
         <p>
-          Here, I share my thoughts on software development, technology exploration,
-          and everyday life. I believe sharing knowledge is the best way to learn,
-          and I hope my articles can help you in some way.
+          Currently, I'm also exploring AI security and observability in cloud-native environments — looking for interesting intersections.
         </p>
+
+        <h2>Open Source</h2>
+        <p>I'm fortunate to contribute to these open source projects:</p>
+        <ul>
+          <li>
+            <a href="https://github.com/bytedance/Elkeid" target="_blank"><strong>Elkeid</strong></a>
+            - A security solution for hosts, containers, K8s, and serverless workloads
+          </li>
+          <li>
+            <a href="https://github.com/bytedance/vArmor" target="_blank"><strong>vArmor</strong></a>
+            - A cloud-native container sandbox based on AppArmor/BPF/Seccomp,
+            <a href="https://www.varmor.org/" target="_blank">documentation</a>
+          </li>
+        </ul>
+
+        <h2>Speaking</h2>
+        <p>Occasionally, I share practical experiences at tech conferences:</p>
+        <ul>
+          <li>
+            <a href="https://github.com/bytedance/vArmor/blob/main/docs/slides/BlackHat%20USA%2024%20Arsenal%20-%20vArmor%20A%20Sandbox%20System%20for%20Hardening%20Cloud-Native%20Containers.pdf" target="_blank">
+              <strong>Black Hat USA 2024 Arsenal</strong>
+            </a> - vArmor: A Sandbox System for Hardening Cloud-Native Containers
+          </li>
+          <li>
+            <a href="https://kcon.knownsec.com/list-kcon2024.html" target="_blank">
+              <strong>KCon 2024</strong>
+            </a> - Kubernetes RBAC Security: Risks, Challenges and Protection
+          </li>
+        </ul>
+
+        <h2>Why This Blog</h2>
         <p>
-          I'm curious about all kinds of technologies, especially Web development,
-          system design, and development tools. If you have any questions or ideas,
-          feel free to reach out to me through the following channels.
+          Technology evolves fast, and writing helps me organize my thoughts and document what I learn.
+          If anything here is helpful to you, that would be wonderful.
+          Feel free to reach out — I'm always happy to discuss and learn together.
         </p>
 
         <div class="contact-links">
           <h2>Contact</h2>
           <ul>
-            <li>
-              📧 Email: <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>
-            </li>
-            <li>
-              🐙 GitHub: <a href={`https://github.com/${AUTHOR.github}`} target="_blank"
-                >@{AUTHOR.github}</a
-              >
-            </li>
-            <li>
-              🌐 Website: <a href={AUTHOR.website} target="_blank">{AUTHOR.website}</a>
-            </li>
+            <li>📧 Email: <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a></li>
+            <li>🐙 GitHub: <a href={`https://github.com/${AUTHOR.github}`} target="_blank">@{AUTHOR.github}</a></li>
+            <li>🌐 Website: <a href={AUTHOR.website} target="_blank">{AUTHOR.website}</a></li>
           </ul>
         </div>
       </div>

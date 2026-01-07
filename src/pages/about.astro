@@ -26,32 +26,52 @@ const t = useTranslations("zh");
       .about-content h1 {
         margin-bottom: 1em;
       }
+      .about-content h2 {
+        margin-top: 2em;
+        margin-bottom: 0.8em;
+        font-size: 1.3em;
+        color: rgb(var(--gray-dark));
+      }
       .about-content p {
-        margin-bottom: 1.5em;
+        margin-bottom: 1.2em;
         line-height: 1.8;
         color: rgb(var(--gray-dark));
       }
+      .about-content ul {
+        margin-bottom: 1.5em;
+        padding-left: 1.5em;
+      }
+      .about-content li {
+        margin-bottom: 0.5em;
+        line-height: 1.7;
+      }
+      .about-content a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .about-content a:hover {
+        text-decoration: underline;
+      }
+      .cert-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.2em 0.6em;
+        border-radius: 4px;
+        font-size: 0.85em;
+        margin-right: 0.5em;
+      }
       .contact-links {
-        margin-top: 2em;
+        margin-top: 2.5em;
         padding-top: 2em;
         border-top: 1px solid rgb(var(--gray-light));
-      }
-      .contact-links h2 {
-        margin-bottom: 1em;
       }
       .contact-links ul {
         list-style: none;
         padding: 0;
       }
       .contact-links li {
-        margin-bottom: 0.5em;
-      }
-      .contact-links a {
-        color: var(--accent);
-        text-decoration: none;
-      }
-      .contact-links a:hover {
-        text-decoration: underline;
+        margin-bottom: 0.6em;
       }
     </style>
   </head>
@@ -59,31 +79,64 @@ const t = useTranslations("zh");
     <Header />
     <main>
       <div class="about-content">
-        <h1>{t("about.title")}</h1>
+        <h1>你好，我是李昌昊 👋</h1>
+
         <p>
-          你好！我是 {AUTHOR.name}，一名热爱技术的开发者。欢迎来到我的个人博客！
+          一名专注于云原生安全领域的工程师，过去几年一直在探索如何让容器和 Kubernetes 集群更加安全。
+          持有 <span class="cert-badge">CKA</span> 和 <span class="cert-badge">CKS</span> 认证。
+        </p>
+
+        <h2>我在做什么</h2>
+        <p>
+          我的工作主要围绕云原生安全体系建设，包括 Kubernetes 入侵检测、容器沙箱加固、以及云安全中心（CWPP/KSPM）相关能力的落地。
+          我相信好的安全产品应该是「开箱即用」的，降低使用门槛才能让更多人受益。
         </p>
         <p>
-          在这里，我会分享我在软件开发、技术探索和日常生活中的所思所想。我相信分享知识是最好的学习方式，希望我的文章能对你有所帮助。
+          目前也在探索云原生场景下 AI 安全和可观测性领域，希望能找到一些有意思的结合点。
         </p>
+
+        <h2>开源贡献</h2>
+        <p>很荣幸能参与以下开源项目的开发工作：</p>
+        <ul>
+          <li>
+            <a href="https://github.com/bytedance/Elkeid" target="_blank"><strong>Elkeid</strong></a>
+            - 一个面向主机、容器、K8s 和 Serverless 的安全解决方案
+          </li>
+          <li>
+            <a href="https://github.com/bytedance/vArmor" target="_blank"><strong>vArmor</strong></a>
+            - 基于 AppArmor/BPF/Seccomp 的云原生容器沙箱系统，
+            <a href="https://www.varmor.org/" target="_blank">官方文档</a>
+          </li>
+        </ul>
+
+        <h2>技术分享</h2>
+        <p>偶尔也会在一些技术会议上分享实践经验：</p>
+        <ul>
+          <li>
+            <a href="https://github.com/bytedance/vArmor/blob/main/docs/slides/BlackHat%20USA%2024%20Arsenal%20-%20vArmor%20A%20Sandbox%20System%20for%20Hardening%20Cloud-Native%20Containers.pdf" target="_blank">
+              <strong>Black Hat USA 2024 Arsenal</strong>
+            </a> - vArmor: A Sandbox System for Hardening Cloud-Native Containers
+          </li>
+          <li>
+            <a href="https://kcon.knownsec.com/list-kcon2024.html" target="_blank">
+              <strong>KCon 2024</strong>
+            </a> - 揭秘 Kubernetes RBAC 安全：风险、挑战及防护
+          </li>
+        </ul>
+
+        <h2>写这个博客的初衷</h2>
         <p>
-          我对各种技术都充满好奇，尤其是 Web 开发、系统设计和开发工具。如果你有任何问题或想法，欢迎通过以下方式联系我。
+          技术领域变化很快，写博客是我整理思路、记录学习的方式。
+          如果这里的内容对你有一点帮助，那就太好了。
+          也欢迎交流讨论，一起学习进步。
         </p>
 
         <div class="contact-links">
           <h2>联系方式</h2>
           <ul>
-            <li>
-              📧 邮箱：<a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>
-            </li>
-            <li>
-              🐙 GitHub：<a href={`https://github.com/${AUTHOR.github}`} target="_blank"
-                >@{AUTHOR.github}</a
-              >
-            </li>
-            <li>
-              🌐 网站：<a href={AUTHOR.website} target="_blank">{AUTHOR.website}</a>
-            </li>
+            <li>📧 邮箱：<a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a></li>
+            <li>🐙 GitHub：<a href={`https://github.com/${AUTHOR.github}`} target="_blank">@{AUTHOR.github}</a></li>
+            <li>🌐 网站：<a href={AUTHOR.website} target="_blank">{AUTHOR.website}</a></li>
           </ul>
         </div>
       </div>
