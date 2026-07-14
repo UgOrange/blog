@@ -39,6 +39,7 @@ const navLinks = NAV_LINKS[lang].filter((link) => link.href !== "/" && link.href
 
   nav {
     display: flex;
+    min-width: 0;
     width: min(var(--content-width), calc(100% - 48px));
     height: 68px;
     margin: 0 auto;
@@ -47,6 +48,7 @@ const navLinks = NAV_LINKS[lang].filter((link) => link.href !== "/" && link.href
   }
 
   .brand {
+    flex-shrink: 0;
     color: var(--text);
     font-family: var(--font-mono);
     font-size: 0.82rem;
@@ -57,7 +59,7 @@ const navLinks = NAV_LINKS[lang].filter((link) => link.href !== "/" && link.href
 
   .brand em { color: var(--accent); font-style: normal; }
 
-  .nav-links { display: flex; align-items: center; gap: 1.7rem; }
+  .nav-links { display: flex; min-width: 0; align-items: center; gap: 1.7rem; }
   .nav-links :global(a) {
     color: var(--text-muted);
     font-family: var(--font-mono);
@@ -74,6 +76,7 @@ const navLinks = NAV_LINKS[lang].filter((link) => link.href !== "/" && link.href
     .nav-links { gap: 1rem; }
     .github-link,
     .divider { display: none; }
+    .nav-links :global(a:nth-child(2)) { display: none; }
   }
 
   @media (max-width: 390px) {

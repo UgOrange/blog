@@ -77,3 +77,16 @@ test("articles and about pages share the focused reading layout", async () => {
   }
   assert.match(giscus, /theme: "dark"/);
 });
+
+test("mobile layouts cannot be widened by navigation or long titles", async () => {
+  const [header, zhHome, zhArchive] = await Promise.all([
+    read("src/components/Header.astro"),
+    read("src/pages/index.astro"),
+    read("src/pages/blog/index.astro"),
+  ]);
+
+  assert.match(header, /min-width: 0/);
+  assert.match(header, /nth-child\(2\)/);
+  assert.match(zhHome, /overflow-wrap: anywhere/);
+  assert.match(zhArchive, /overflow-wrap: anywhere/);
+});
