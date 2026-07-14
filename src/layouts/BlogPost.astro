@@ -8,92 +8,63 @@ import Giscus from "../components/Giscus.astro";
 import Header from "../components/Header.astro";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
-type Props = CollectionEntry<"blog">["data"] & {
-  slug?: string;
-};
+type Props = CollectionEntry<"blog">["data"] & { slug?: string };
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
+<!doctype html>
 <html lang={lang}>
-  <head>
-    <BaseHead title={title} description={description} />
-    <style>
-      main {
-        width: calc(100% - 2em);
-        max-width: 100%;
-        margin: 0;
-      }
-      .hero-image {
-        width: 100%;
-      }
-      .hero-image img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
-      }
-      .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
-        margin: auto;
-        padding: 1em;
-        color: rgb(var(--gray-dark));
-      }
-      .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
-        text-align: center;
-        line-height: 1;
-      }
-      .title h1 {
-        margin: 0 0 0.5em 0;
-      }
-      .date {
-        margin-bottom: 0.5em;
-        color: rgb(var(--gray));
-      }
-      .last-updated-on {
-        font-style: italic;
-      }
-      .comments-section {
-        margin-top: 3rem;
-      }
-    </style>
-  </head>
-
+  <head><BaseHead title={title} description={description} image={heroImage} /></head>
   <body>
     <Header />
-    <main>
+    <main class="article-shell">
       <article>
-        <div class="hero-image">
-          {heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-        </div>
-        <div class="prose">
-          <div class="title">
-            <div class="date">
-              <FormattedDate date={pubDate} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    {t("common.lastUpdated")} <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
-            </div>
-            <h1>{title}</h1>
-            <hr />
+        <header class="article-header">
+          <p class="shell-label">ARTICLE / {lang === "zh" ? "文章" : "FIELD NOTE"}</p>
+          <h1>{title}</h1>
+          <p class="description">{description}</p>
+          <div class="article-dates">
+            <span><FormattedDate date={pubDate} /></span>
+            {updatedDate && <span>{t("common.lastUpdated")} <FormattedDate date={updatedDate} /></span>}
           </div>
+        </header>
+
+        {heroImage && (
+          <div class="hero-image">
+            <Image width={1020} height={510} src={heroImage} alt={title} />
+          </div>
+        )}
+
+        <div class="prose article-body">
           <slot />
-          <div class="comments-section">
-            <h2>{t("comments.title")}</h2>
+          <section class="comments-section" aria-labelledby="comments-heading">
+            <h2 id="comments-heading">{t("comments.title")}</h2>
             <Giscus />
-          </div>
+          </section>
         </div>
       </article>
     </main>
     <Footer />
   </body>
 </html>
+
+<style>
+  .article-shell { width: min(920px, calc(100% - 48px)); padding-top: clamp(4.8rem, 10vw, 7rem); }
+  .article-header { width: min(var(--reading-width), 100%); margin: 0 auto 3.5rem; }
+  .article-header h1 { margin-bottom: 1.4rem; font-size: clamp(2.5rem, 6vw, 4.15rem); }
+  .description { margin-bottom: 1.5rem; color: var(--text-muted); font-size: 1.05rem; line-height: 1.65; }
+  .article-dates { display: flex; flex-wrap: wrap; gap: 0.65rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.68rem; }
+  .hero-image { margin: 0 auto 4rem; }
+  .hero-image :global(img) { width: 100%; border: 1px solid var(--border); }
+  .article-body { width: min(var(--reading-width), 100%); margin: 0 auto; }
+  .comments-section { margin-top: 5rem; padding-top: 3.5rem; border-top: 1px solid var(--border); }
+  .comments-section h2 { font-size: 1.5rem; }
+  @media (max-width: 720px) {
+    .article-shell { width: calc(100% - 40px); }
+    .article-header { margin-bottom: 2.7rem; }
+    .hero-image { margin-bottom: 3rem; }
+  }
+</style>

@@ -59,3 +59,21 @@ test("bilingual archives use a linear article index", async () => {
     assert.doesNotMatch(source, /li:first-child/);
   }
 });
+
+test("articles and about pages share the focused reading layout", async () => {
+  const [layout, zhAbout, enAbout, giscus] = await Promise.all([
+    read("src/layouts/BlogPost.astro"),
+    read("src/pages/about.astro"),
+    read("src/pages/en/about.astro"),
+    read("src/components/Giscus.astro"),
+  ]);
+
+  assert.match(layout, /class="article-shell"/);
+  assert.match(layout, /class="article-header"/);
+  for (const source of [zhAbout, enAbout]) {
+    assert.match(source, /class="about-shell"/);
+    assert.match(source, /border: 1px solid var\(--border\)/);
+    assert.doesNotMatch(source, /linear-gradient/);
+  }
+  assert.match(giscus, /theme: "dark"/);
+});
