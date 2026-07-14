@@ -24,7 +24,7 @@ The existing routes, content collections, bilingual behavior, RSS, sitemap, SEO 
 
 ### Header
 
-- Brand: `ugorange.com/log`.
+- Brand: `ugorange.com`.
 - Primary links: articles and about.
 - Language control: Chinese and English.
 - GitHub remains available but should not dominate the header.

@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Site identity is `ugorange.com` and the header brand is `ugorange.com/log`.
+- Site identity and header brand are both `ugorange.com`.
 - Use near-black charcoal, high-contrast off-white, readable gray, and one low-saturation mint accent.
 - Do not add a UI framework or change content schemas, routes, RSS, sitemap, SEO, or Giscus behavior.
 - Do not use literal terminal prompts, fake commands, window chrome, `sandbox online` labels, glowing effects, decorative gradients, or excessive animation.
@@ -34,7 +34,7 @@
 
 - [ ] **Step 1: Add failing design-contract assertions**
 
-Create a Node test that reads source files and asserts the header includes `ugorange.com` and `/log`, global CSS defines the new surface and reading tokens, and no component contains `SANDBOX ONLINE`.
+Create a Node test that reads source files and asserts the header includes the clear `ugorange.com` domain brand, global CSS defines the new surface and reading tokens, and no component contains `SANDBOX ONLINE`.
 
 - [ ] **Step 2: Run the contract test and confirm failure**
 
@@ -44,7 +44,7 @@ Expected: FAIL because the current header and CSS still use the old Bear Blog de
 
 - [ ] **Step 3: Implement global tokens and component shells**
 
-Replace Bear Blog defaults with the approved charcoal system, readable type scale, accessible focus styles, responsive spacing, prose defaults, and reduced-motion handling. Rebuild the header as a thin bordered bar with `ugorange.com/log`, compact route links, language switcher, and quiet GitHub link. Rebuild the footer as one compact metadata row containing copyright, GitHub, email, and RSS.
+Replace Bear Blog defaults with the approved charcoal system, readable type scale, accessible focus styles, responsive spacing, prose defaults, and reduced-motion handling. Rebuild the header as a thin bordered bar with `ugorange.com`, compact route links, language switcher, and quiet GitHub link. Rebuild the footer as one compact metadata row containing copyright, GitHub, email, and RSS.
 
 - [ ] **Step 4: Run tests and build**
 

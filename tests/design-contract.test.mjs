@@ -4,14 +4,14 @@ import test from "node:test";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
-test("shared shell exposes the approved brand and design tokens", async () => {
+test("shared shell exposes the clear domain brand and design tokens", async () => {
   const [header, globalCss] = await Promise.all([
     read("src/components/Header.astro"),
     read("src/styles/global.css"),
   ]);
 
   assert.match(header, /ugorange\.com/);
-  assert.match(header, /\/log/);
+  assert.doesNotMatch(header, />\/log</);
   assert.match(globalCss, /--surface:/);
   assert.match(globalCss, /--reading-width:/);
 });

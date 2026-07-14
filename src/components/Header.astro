@@ -11,7 +11,7 @@ const navLinks = NAV_LINKS[lang].filter((link) => link.href !== "/" && link.href
 <header class="site-header">
   <nav aria-label={lang === "zh" ? "主导航" : "Primary navigation"}>
     <a class="brand" href={lang === "zh" ? "/" : "/en/"} aria-label="ugorange.com home">
-      <span>ugorange.com</span><em>/log</em>
+      <span>ugorange.com</span>
     </a>
 
     <div class="nav-links">
@@ -56,8 +56,6 @@ const navLinks = NAV_LINKS[lang].filter((link) => link.href !== "/" && link.href
     letter-spacing: -0.025em;
     text-decoration: none;
   }
-
-  .brand em { color: var(--accent); font-style: normal; }
 
   .nav-links { display: flex; min-width: 0; align-items: center; gap: 1.7rem; }
   .nav-links :global(a) {
