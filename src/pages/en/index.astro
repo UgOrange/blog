@@ -7,8 +7,6 @@ import Header from "../../components/Header.astro";
 import { useTranslations } from "../../i18n/utils";
 
 const t = useTranslations("en");
-
-// Get English posts only
 const allPosts = await getCollection("blog");
 const posts = allPosts
   .filter((post) => post.id.startsWith("en/"))
@@ -18,37 +16,36 @@ const posts = allPosts
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <BaseHead title={t("site.title")} description={t("site.description")} />
-  </head>
+  <head><BaseHead title={t("site.title")} description={t("site.description")} /></head>
   <body>
     <Header />
     <main>
-      <section class="hero">
+      <section class="home-intro">
+        <p class="shell-label">{t("home.eyebrow")}</p>
         <h1>{t("home.welcome")}</h1>
-        <p>{t("home.intro")}</p>
+        <p class="intro-copy">{t("home.intro")}</p>
+        <p class="topic-line">{t("home.topics")}</p>
       </section>
 
-      <section class="recent-posts">
+      <section class="recent-posts" aria-labelledby="recent-heading">
         <div class="section-header">
-          <h2>{t("home.recent")}</h2>
-          <a href="/en/blog" class="view-all">{t("home.viewAll")} →</a>
+          <h2 id="recent-heading">{t("home.recent")}</h2>
+          <a href="/en/blog">{t("home.viewAll")} <span aria-hidden="true">→</span></a>
         </div>
-        <ul class="post-list">
-          {
-            posts.map((post) => (
-              <li>
-                <a href={`/en/blog/${post.id.replace("en/", "")}/`}>
+        <ol class="post-stream">
+          {posts.map((post) => (
+            <li>
+              <a href={`/en/blog/${post.id.replace("en/", "")}/`}>
+                <time><FormattedDate date={post.data.pubDate} /></time>
+                <div class="post-copy">
                   <h3>{post.data.title}</h3>
-                  <p class="description">{post.data.description}</p>
-                  <p class="date">
-                    <FormattedDate date={post.data.pubDate} />
-                  </p>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+                  <p>{post.data.description}</p>
+                </div>
+                <span class="post-arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))}
+        </ol>
       </section>
     </main>
     <Footer />
@@ -56,94 +53,28 @@ const posts = allPosts
 </html>
 
 <style>
-  main {
-    width: 960px;
-    max-width: calc(100% - 2em);
-    margin: 0 auto;
-    padding: 2em 1em;
-  }
-
-  .hero {
-    text-align: center;
-    padding: 3em 0;
-    margin-bottom: 2em;
-    border-bottom: 1px solid rgb(var(--gray-light));
-  }
-
-  .hero h1 {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
-  }
-
-  .hero p {
-    font-size: 1.2em;
-    color: rgb(var(--gray));
-  }
-
-  .recent-posts {
-    margin-top: 2em;
-  }
-
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5em;
-  }
-
-  .section-header h2 {
-    margin: 0;
-  }
-
-  .view-all {
-    color: var(--accent);
-    text-decoration: none;
-  }
-
-  .view-all:hover {
-    text-decoration: underline;
-  }
-
-  .post-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .post-list li {
-    margin-bottom: 1.5em;
-    padding-bottom: 1.5em;
-    border-bottom: 1px solid rgb(var(--gray-light));
-  }
-
-  .post-list li:last-child {
-    border-bottom: none;
-  }
-
-  .post-list a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-
-  .post-list a:hover h3 {
-    color: var(--accent);
-  }
-
-  .post-list h3 {
-    margin: 0 0 0.5em 0;
-    font-size: 1.3em;
-    transition: color 0.2s;
-  }
-
-  .post-list .description {
-    margin: 0 0 0.5em 0;
-    color: rgb(var(--gray-dark));
-  }
-
-  .post-list .date {
-    margin: 0;
-    color: rgb(var(--gray));
-    font-size: 0.9em;
+  main { padding-top: clamp(5.5rem, 12vw, 8.5rem); }
+  .home-intro { max-width: 760px; }
+  .home-intro h1 { max-width: 720px; margin-bottom: 1.7rem; }
+  .intro-copy { max-width: 650px; color: var(--text-body); font-size: 1.08rem; line-height: 1.75; }
+  .topic-line { margin-top: 1.75rem; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; }
+  .recent-posts { margin-top: clamp(5rem, 11vw, 7.5rem); }
+  .section-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.9rem; border-bottom: 1px solid var(--border); }
+  .section-header h2 { margin: 0; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.09em; text-transform: uppercase; }
+  .section-header a { font-family: var(--font-mono); font-size: 0.7rem; text-decoration: none; }
+  .post-stream { margin: 0; padding: 0; list-style: none; }
+  .post-stream li { border-bottom: 1px solid var(--border-soft); }
+  .post-stream a { display: grid; grid-template-columns: 112px 1fr 24px; gap: 1.5rem; padding: 1.7rem 0; color: inherit; text-decoration: none; }
+  .post-stream time { padding-top: 0.3rem; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.7rem; white-space: nowrap; }
+  .post-copy h3 { margin: 0 0 0.4rem; font-size: 1.25rem; transition: color 160ms ease; }
+  .post-copy p { max-width: 650px; margin: 0; color: var(--text-muted); font-size: 0.9rem; line-height: 1.55; }
+  .post-arrow { color: var(--accent); }
+  .post-stream a:hover h3 { color: var(--accent-strong); }
+  .post-stream a:hover .post-arrow { transform: translate(2px, -2px); }
+  @media (max-width: 620px) {
+    .post-stream a { grid-template-columns: 76px 1fr; gap: 0.8rem; padding: 1.4rem 0; }
+    .post-arrow, .post-copy p { display: none; }
+    .post-copy h3 { font-size: 1.04rem; line-height: 1.4; }
+    .topic-line { line-height: 1.9; }
   }
 </style>

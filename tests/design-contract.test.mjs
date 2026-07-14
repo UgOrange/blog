@@ -26,3 +26,21 @@ test("literal sandbox status language is absent from UI components", async () =>
     assert.doesNotMatch(source, /sandbox online/i);
   }
 });
+
+test("bilingual home pages share the clear editorial structure", async () => {
+  const [zhHome, enHome, translations] = await Promise.all([
+    read("src/pages/index.astro"),
+    read("src/pages/en/index.astro"),
+    read("src/i18n/ui.ts"),
+  ]);
+
+  for (const source of [zhHome, enHome]) {
+    assert.match(source, /class="home-intro"/);
+    assert.match(source, /class="topic-line"/);
+    assert.match(source, /class="post-stream"/);
+  }
+
+  assert.match(translations, /构建更安全的智能系统/);
+  assert.match(translations, /Building safer intelligent systems/);
+  assert.doesNotMatch(translations, /sandbox online/i);
+});

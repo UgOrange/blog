@@ -17,8 +17,10 @@ export const ui = {
     "nav.about": "关于",
 
     // Home page
-    "home.welcome": "欢迎来到我的博客",
-    "home.intro": "这里是我分享技术见解、编程经验和生活感悟的地方。",
+    "home.eyebrow": "云原生安全 / AI 系统",
+    "home.welcome": "构建更安全的智能系统。",
+    "home.intro": "你好，我是李昌昊，一名云原生安全工程师。这里记录我对 Agent Runtime、容器隔离与 AI 系统安全的思考和实践。",
+    "home.topics": "RUNTIME · ISOLATION · OBSERVABILITY · AI SECURITY",
     "home.recent": "最新文章",
     "home.viewAll": "查看全部",
 
@@ -52,8 +54,10 @@ export const ui = {
     "nav.about": "About",
 
     // Home page
-    "home.welcome": "Welcome to my blog",
-    "home.intro": "This is where I share my insights on technology, programming experiences, and thoughts on life.",
+    "home.eyebrow": "Cloud Native Security / AI Systems",
+    "home.welcome": "Building safer intelligent systems.",
+    "home.intro": "I'm Changhao Li, a cloud-native security engineer. I write about agent runtimes, container isolation, observability, and the security boundaries of AI systems.",
+    "home.topics": "RUNTIME · ISOLATION · OBSERVABILITY · AI SECURITY",
     "home.recent": "Recent Posts",
     "home.viewAll": "View All",
 
