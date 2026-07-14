@@ -44,3 +44,18 @@ test("bilingual home pages share the clear editorial structure", async () => {
   assert.match(translations, /Building safer intelligent systems/);
   assert.doesNotMatch(translations, /sandbox online/i);
 });
+
+test("bilingual archives use a linear article index", async () => {
+  const archives = await Promise.all([
+    read("src/pages/blog/index.astro"),
+    read("src/pages/en/blog/index.astro"),
+  ]);
+
+  for (const source of archives) {
+    assert.match(source, /class="archive-list"/);
+    assert.match(source, /class="archive-entry"/);
+    assert.match(source, /post\.data\.description/);
+    assert.match(source, /post\.data\.tags/);
+    assert.doesNotMatch(source, /li:first-child/);
+  }
+});
